@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Submission Result</title>
+    <style>
+        /* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f9f9f9;
+    color: #333;
+    padding: 40px;
+    margin: 0;
+}
+
+/* Headings */
+h1 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h2, h3 {
+    color: #34495e;
+    margin-top: 20px;
+}
+
+/* Progress Bar */
+.progress-bar {
+    background-color: #ecf0f1;
+    border-radius: 30px;
+    overflow: hidden;
+    height: 20px;
+    margin-top: 10px;
+    width: 100%;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(90deg, #27ae60, #2ecc71);
+    border-radius: 30px;
+    transition: width 0.5s ease-in-out;
+}
+
+/* File List */
+ul {
+    padding-left: 20px;
+}
+
+ul li {
+    background: #e8f6f3;
+    margin: 5px 0;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+ul li:hover {
+    background: #d1f2eb;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #2980b9;
+    color: #fff;
+    text-transform: capitalize;
+}
+
+td ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+td li {
+    background: #f0f8ff;
+    padding: 6px 10px;
+    margin: 3px 0;
+    border-radius: 5px;
+}
+
+/* Link */
+a {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+a:hover {
+    background-color: #2980b9;
+}
+
+/* Responsive Table */
+@media (max-width: 600px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    th {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    td {
+        border: none;
+        position: relative;
+        padding-left: 50%;
+        margin-bottom: 10px;
+    }
+
+    td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <h1>Work Submission Result</h1>
+    
+    <h2>Employee: {{ employee }}</h2>
+    <h3>Project Type: {{ project_type }}</h3>
+    
+    <div>
+        <h3>Progress: {{ progress }}%</h3>
+        <div class="progress-bar">
+            <div class="progress" style="width: {{ progress }}%"></div>
+        </div>
+    </div>
+    
+    <h3>Uploaded Files:</h3>
+    <ul>
+        {% for file in files %}
+        <li>{{ file.name }} ({{ file.size|filesizeformat }})</li>
+        {% endfor %}
+    </ul>
+    
+    {% if analysis %}
+    <h3>Analysis Results:</h3>
+    <table>
+        {% for key, value in analysis.items() %}
+        <tr>
+            <th>{{ key|replace('_', ' ')|title }}</th>
+            <td>
+                {% if value is mapping %}
+                    <ul>
+                        {% for k, v in value.items() %}
+                        <li><strong>{{ k|replace('_', ' ')|title }}:</strong> {{ v }}</li>
+                        {% endfor %}
+                    </ul>
+                {% elif value is iterable and value is not string %}
+                    <ul>
+                        {% for item in value %}
+                        <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    {{ value }}
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    
+    <p><a href="{{ url_for('employee') }}">Submit more files</a> </p>
+</body>
+</html>
