@@ -7,7 +7,6 @@ radon
 python-docx
 pdfminer.six
 pillow
-
 # TensorFlow/Keras
 tensorflow
 keras
