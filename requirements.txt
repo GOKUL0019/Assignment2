@@ -1,21 +1,21 @@
 # Core Requirements
-flask==3.0.2
-numpy==1.26.4
-scikit-learn==1.4.0
-transformers==4.38.2
-radon==6.0.1
-python-docx==1.1.2
-pdfminer.six==20231105
-pillow==10.2.0
+flask
+numpy
+scikit-learn
+transformers
+radon
+python-docx
+pdfminer.six
+pillow
 
 # TensorFlow/Keras
-tensorflow==2.16.1
-keras==3.10.0
+tensorflow
+keras
 
 # Additional Dependencies
-werkzeug==3.0.1
-pickle-mixin==1.0.2
-tqdm==4.66.2
+werkzeug
+pickle-mixin
+tqdm
 
 # Development (Optional)
-python-dotenv==1.0.1
+python-dotenv
